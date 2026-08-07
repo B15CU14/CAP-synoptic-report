@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAP Colorectal Resection Protocol 4.4.0.1</title>
+    <title>CAP HCC Resection Protocol 4.3.0.0</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; max-width: 900px; line-height: 1.6; }
         h1 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
@@ -20,11 +20,16 @@
         ul.synoptic-list { list-style-type: disc; padding-left: 20px; }
         li.synoptic-item { margin-bottom: 5px; font-family: 'Courier New', Courier, monospace; }
         .note { font-size: 0.85em; color: #666; font-style: italic; }
+        .tooltip {  position: relative;  cursor: pointer;}
+        .tooltip .tooltiptext {  visibility: hidden;  background-color: #333;  color: #fff;  padding: 5px 10px;  border-radius: 4px;  position: absolute;  bottom: 125%;  left: 50%;  transform: translateX(-50%);width: 250px;  white-space: normal;  font-size: 13px;  z-index: 1;}
+        .tooltip:hover .tooltiptext {  visibility: visible;}
+        .info-btn { font-size: 0.75em; padding: 2px 5px; cursor: pointer; background-color: #3498db; color: #fff; border: none; border-radius: 3px; margin-left: 5px; vertical-align: middle; }
+        .info-btn:hover { background-color: #2980b9; }
     </style>
 </head>
 <body>
 
-    <h1>CAP Protocol: HCC 4.3.0.0</h1>
+    <h1>CAP Protocol HCC Resection 4.3.0.0</h1>
     <p><em>Based on AJCC 8th Edition</em></p>
 
     <form id="capForm">
@@ -57,6 +62,7 @@
 
         <div class="question-block">
             <span class="question-label">Histologic Grade</span>
+            <h6>For single tumor, report predominant grade and worst grade (if minority)</h6>
             <h6>For multiple tumors, select the worst grade. </h6>
             <label><input type="radio" name="Grade" value="G1, well-differentiated" data-label="Histologic Grade"> G1, well-differentiated</label>
             <label><input type="radio" name="Grade" value="G2, moderately differentiated" data-label="Histologic Grade" checked> G2, moderately differentiated</label>
@@ -99,6 +105,7 @@
 
         <div class ='question-block' id="mass1_satellitosis">
             <span class="question-label">Mass 1: Satellitosis</span>
+            <h6>HCC nodule smaller than the primary tumor, <2 cm of the primary tumor, but separated by nontumor tissue. </h6>
             <label><input type ="radio" name="Satellitosis_Mass1" value="Not identified" data-label="Satellitosis" data-mass="1" checked> Not identified</label>
             <label><input type ="radio" name="Satellitosis_Mass1" value="Present" data-label="Satellitosis" data-mass="1"> Present</label>
             <label><input type ="radio" name="Satellitosis_Mass1" value="Cannot be determined" data-label="Satellitosis" data-mass="1"> Cannot be determined</label>
@@ -112,7 +119,7 @@
             <span class="question-label">Tumor Extent</span>
             <h6> Select all that apply</h6>
             <label><input type="checkbox" name="Extent" value="No evidence of primary tumor" data-label="Tumor Extent" onclick="resetOtherInputs(this)"> No evidence of primary tumor</label>
-            <label><input type="checkbox" name="Extent" value="Confined to liver" data-label="Tumor Extent" onclick="resetOtherInputs(this)" c> Confined to liver</label>
+            <label><input type="checkbox" name="Extent" value="Confined to liver" data-label="Tumor Extent" onclick="resetOtherInputs(this)" checked> Confined to liver</label>
             <label><input type="checkbox" name="Extent" value="Involves a major branch of the portal vein" data-label="Tumor Extent"> Involves a major branch of the portal vein </label>
             <label><input type="checkbox" name="Extent" value="Involves hepatic vein(s)" data-label="Tumor Extent"> Involves hepatic vein(s)</label>
             <label><input type="checkbox" name="Extent" value="Perforates visceral peritoneum" data-label="Tumor Extent"> Perforates visceral peritoneum</label>
@@ -125,7 +132,7 @@
         
         <div class="question-block">
             <span class="question-label">Vascular Invasion</span>
-            <label><input type="radio" name="LVI" value="Not identified" data-label="Vascular invasion" onclick="toggleSub('lvi-details', false)">Not identified</label>
+            <label><input type="radio" name="LVI" value="Not identified" data-label="Vascular invasion" onclick="toggleSub('lvi-details', false)" checked >Not identified</label>
             <label><input type="radio" name="LVI" value="Present" data-label="Vascular invasion" onclick="toggleSub('lvi-details', true)">Present</label>
                 <div id="lvi-details" class="sub-question" style="display: none;">
                     <label><input type="checkbox" name="LVI_details" value="Small vessel" data-label="Vascular invasion" class="has text"> Small vessel <input type = "text" name = "small_LVI_number" placeholder="specify number"></label>
@@ -145,15 +152,14 @@
         <h2>Margins</h2>
 
         <div class="question-block">
-            <label><input type="radio" name="MarginStatus" value="All margins negative" data-label="Margin Status" onclick="toggleSub('Negative_margin', true); resetOtherInputs(this)"> All margins negative for invasive carcinoma</label>
-                <div id="Negative_margin" class="sub-question" style ="display: none;">
-                    <span class="question-label">Closest Margin(s) to Invasive Carcinoma</span>
-                        <label><input type="checkbox" name="ClosestMargin" value="parenchymal" > Parenchymal</label>
-                        <label><input type="checkbox" name="ClosestMargin" value="Other" class="has-text"><input type="text" placeholder="Specify other margin"></label>
-                    <span class="question-label">Distance to Closest Margin</span>
-                        <label>cm: <input type="text" name="MarginDistance"></label>
-                </div>
-            <label class="has-text"><input type="radio" name="MarginStatus" value="Invasive carcinoma present at margin" data-label="Margin Status" class="has-text" onclick="toggleSub('Negative_margin', false)"> Invasive carcinoma present at<input type="text" name="Positive margin"> margin</label>
+            <div class="question-block">
+            <H3>Margin status for invasive carcinoma</H3>
+            <label><input type="radio" name="MarginStatus_CA" value="All margins negative" data-label="Margin Status" class="has-text" checked> All margins negative for invasive carcinoma, closest distance <input type="text" name="MarginDistance" placeholder ="cm"></label>
+            <label class="has-text"><input type="radio" name="MarginStatus_CA" value="Invasive carcinoma present" data-label="Margin Status" onclick="resetOtherInputs(this)"> Positive margin</label>
+            <h5>Select margin</h5>
+            <label><input type="checkbox" name="SpecifyMargin_CA" value="proximal" > Parenchymal</label>
+            <label><input type="checkbox" name="SpecifyMargin_CA" value="Other" class="has-text"> Other<input type="text" placeholder="Specify other margin"></label>
+        </div>
         </div>
 
         
@@ -684,14 +690,10 @@
                         if (val === "sizeAvailable") return;
 
                         const hasText = input.classList.contains('has-text') || input.parentElement.classList.contains('has-text');
-                        if (hasText) {
+                        if (hasText && label !== "Margin Status") {
                             const txt = input.parentElement.querySelector('input[type="text"], input[type="number"]')?.value.trim();
                             if (txt) {
-                                if (label === "Margin Status") {
-                                    val = `Positive ${txt} margin`;
-                                } else {
-                                    val = `${val}: ${txt}`;
-                                }
+                                val = `${val}: ${txt}`;
                             }
                         }
 
@@ -715,19 +717,25 @@
                                 val = lviDetails.length > 0 ? `Present, ${lviDetails.join(', ')}` : val;
                             }
                             // Special handling for margins
-                            if (val === "All margins negative") {
-                                const subDiv = document.getElementById('Negative_margin');
-                                const margins = Array.from(subDiv.querySelectorAll('input[name="ClosestMargin"]:checked')).map(m => {
-                                    const marginVal = m.value;
-                                    if (marginVal === "Other") {
-                                        const otherMargin = m.parentElement.querySelector('input[type="text"]')?.value.trim();
-                                        return otherMargin ? otherMargin : "Other";
+                            if (label === "Margin Status") {
+                                const getMarginLabel = m => {
+                                    if (m.value === 'Other') {
+                                        const other = m.parentElement.querySelector('input[type="text"]')?.value.trim();
+                                        return other || 'Other';
                                     }
-                                    return marginVal;
-                                });
-
-                                const distance = subDiv.querySelector('input[name="MarginDistance"]')?.value;
-                                val += margins.length > 0 ? ` (closest: ${margins.join(', ')}${distance ? `; distance: ${distance} cm` : ""})` : "";
+                                    return m.parentElement.textContent.trim();
+                                };
+                                if (val === "All margins negative") {
+                                    const distance = document.querySelector('input[name="MarginDistance"]')?.value.trim();
+                                    const closestMargins = Array.from(document.querySelectorAll('input[name="SpecifyMargin_CA"]:checked')).map(getMarginLabel);
+                                    const closestPart = closestMargins.length > 0 ? closestMargins.join(', ') : '';
+                                    val = `All margins are negative of invasive carcinoma (closest margin = ${closestPart}, distance = ${distance || ''} cm)`;
+                                } else if (val === "Invasive carcinoma present") {
+                                    const positiveMargins = Array.from(document.querySelectorAll('input[name="SpecifyMargin_CA"]:checked')).map(getMarginLabel);
+                                    val = positiveMargins.length > 0
+                                        ? `Present of tumor cells at ${positiveMargins.join(', ')} margin`
+                                        : 'Present of tumor cells at margin';
+                                }
                             }
                             nonMassData.push(val);
                         } else if (input.type === 'checkbox') {
